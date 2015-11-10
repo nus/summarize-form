@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Summarize Page</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#btn-summarize').on('click', function(e) {
+          $('#summarized').empty()
+
+          var t = $('#text').val().replace(/[\n|^\u3000]/g, '');
+          var sl = $('#sentence-limit').val();
+
+          $.ajax({
+            type: 'GET',
+            url: '/api/summarize.json',
+            data: {
+              'text': t,
+              'sent_limit': sl,
+            },
+          })
+          .done(function(data) {
+            $(data['summary']).each(function(index, line) {
+              $('#summarized').append('<li>' + line + '</li>');
+            });
+          })
+          .fail(function(xhr) {
+            $('#summarized').html('<h1>Failed.</h1>');
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>テキスト</td>
+        <td><textarea id="text" rows="6" cols="80"></textarea></td>
+      </tr>
+      <tr>
+        <td>最大要約行数</td>
+        <td><input id="sentence-limit" type="number" value="3" min="1" max="10"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input id="btn-summarize" type="button" value="要約" /></td>
+      </tr>
+      <tr>
+        <td>要約結果</td>
+        <td>
+          <ul id="summarized">
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
