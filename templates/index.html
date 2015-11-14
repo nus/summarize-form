@@ -2,10 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summarize Page</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
       $(function() {
+        $('#tab a[href="#tab-url"]').tab('show');
+
         $('#btn-summarize').on('click', function(e) {
           $('#summarized').empty()
 
@@ -33,26 +38,41 @@
     </script>
   </head>
   <body>
-    <table>
-      <tr>
-        <td>テキスト</td>
-        <td><textarea id="text" rows="6" cols="80"></textarea></td>
-      </tr>
-      <tr>
-        <td>最大要約行数</td>
-        <td><input id="sentence-limit" type="number" value="3" min="1" max="10"></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><input id="btn-summarize" type="button" value="要約" /></td>
-      </tr>
-      <tr>
-        <td>要約結果</td>
-        <td>
-          <ul id="summarized">
-          </ul>
-        </td>
-      </tr>
-    </table>
+    <div class="container">
+      <table>
+        <tr>
+          <td>テキスト</td>
+          <td>
+            <ul id="tab" class="nav nav-tabs">
+              <li class="active"><a href="#tab-text" data-toggle="tab">テキスト</a></li>
+              <li><a href="#tab-url" data-toggle="tab">URL</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab-text">
+                <textarea id="text" rows="6" cols="80"></textarea>
+              </div>
+              <div class="tab-pane fade in active" id="tab-url">
+                <input type="text" placeholder="https://www.example.com">
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>最大要約行数</td>
+          <td><input id="sentence-limit" type="number" value="3" min="1" max="10"></td>
+        </tr>
+        <tr>
+          <td></td>
+        <td><button id="btn-summarize" class="btn">要約</button></td>
+        </tr>
+        <tr>
+          <td>要約結果</td>
+          <td>
+            <ul id="summarized">
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>
