@@ -14,16 +14,25 @@
         $('#btn-summarize').on('click', function(e) {
           $('#summarized').empty()
 
-          var t = $('#text').val().replace(/[\n|^\u3000]/g, '');
-          var sl = $('#sentence-limit').val();
+          var isUrl = $('#tab').find('.active>a[href=#tab-url]').length == 1;
+          var query = {
+            'sent_limit': $('#sentence-limit').val(),
+          };
+          if (isUrl) {
+            query['url'] = $('#url').val();
+          } else {
+            query['text'] = $('#text').val().replace(/[\n|^\u3000]/g, '');
+          }
 
+          fetchSummary(query);
+          console.log(query);
+        });
+
+        function fetchSummary(query) {
           $.ajax({
             type: 'GET',
             url: '/api/summarize.json',
-            data: {
-              'text': t,
-              'sent_limit': sl,
-            },
+            data: query,
           })
           .done(function(data) {
             $(data['summary']).each(function(index, line) {
@@ -33,7 +42,7 @@
           .fail(function(xhr) {
             $('#summarized').html('<h1>Failed.</h1>');
           });
-        });
+        };
       });
     </script>
   </head>
@@ -52,7 +61,7 @@
                 <textarea id="text" rows="6" cols="80"></textarea>
               </div>
               <div class="tab-pane fade in active" id="tab-url">
-                <input type="text" placeholder="https://www.example.com">
+                <input id="url" type="text" placeholder="https://www.example.com">
               </div>
             </div>
           </td>

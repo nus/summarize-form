@@ -6,6 +6,8 @@
 
 - Python 2.7
 - Flask
+- Requests
+- petitviolet/python-extractcontent https://github.com/petitviolet/python-extractcontent
 - Summpy https://github.com/recruit-tech/summpy
 
 ## 実行
