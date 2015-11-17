@@ -53,15 +53,15 @@
           <td>テキスト</td>
           <td>
             <ul id="tab" class="nav nav-tabs">
-              <li class="active"><a href="#tab-text" data-toggle="tab">テキスト</a></li>
               <li><a href="#tab-url" data-toggle="tab">URL</a></li>
+              <li><a href="#tab-text" data-toggle="tab">テキスト</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane fade in active" id="tab-text">
-                <textarea id="text" rows="6" cols="80"></textarea>
-              </div>
               <div class="tab-pane fade in active" id="tab-url">
-                <input id="url" type="text" placeholder="https://www.example.com">
+                <input id="url" class="span10" type="text" placeholder="https://www.example.com">
+              </div>
+              <div class="tab-pane fade in active" id="tab-text">
+                <textarea id="text" class="span10" rows="6" cols="80"></textarea>
               </div>
             </div>
           </td>
